@@ -14,7 +14,7 @@ h1 {
 }
 
 .main-container {
-    width: 50vw;
+    width: 40vw;
     margin: auto;
 }
 
@@ -29,5 +29,5 @@ input {
 }
 
 #search-btn {
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 0.8rem;
 }
