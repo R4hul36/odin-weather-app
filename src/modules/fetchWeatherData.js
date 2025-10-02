@@ -7,8 +7,9 @@ export async function fetchWeatherData(location) {
     const response = await fetch(
       `${baseUrl}${location}?key=${key}&unitGroup=metric`
     )
+    console.log(response);
+    
     const data = await response.json()
-    console.log(data)
     return data
   } catch (error) {
     console.log('Invalid Location' + error)
