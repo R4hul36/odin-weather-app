@@ -25,8 +25,7 @@ form.addEventListener('submit', async (e) => {
  
   renderWeatherData(weatherInfo, weatherContainer)
   
-  
-  console.log('submitted')
+ 
   console.log(weatherInfo);
   
 })

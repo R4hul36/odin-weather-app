@@ -14,7 +14,7 @@ h1 {
 }
 
 .main-container {
-    width: 40vw;
+    width: 50vw;
     margin: auto;
 }
 
@@ -30,4 +30,10 @@ input {
 
 #search-btn {
     padding: 0.5rem 0.8rem;
+}
+
+.weather-card {
+    background-color: white;
+    margin-top: 2rem;
+    padding: 1rem;
 }
