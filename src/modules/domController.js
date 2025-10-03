@@ -1,7 +1,10 @@
-import { format } from 'date-fns'
+import { format, toZonedTime} from 'date-fns-tz'
+
+
+
 
 export const renderWeatherData = function (
-  { address, currentConditions: { temp, conditions }, description, timezone },
+  { address, currentConditions: { temp, conditions, feelslike }, description, timezone },
   weatherContainer
 ) {
   weatherContainer.innerHTML = ''
@@ -11,20 +14,28 @@ export const renderWeatherData = function (
   const locationName = document.createElement('h2')
   locationName.textContent = address[0].toUpperCase() + address.slice(1)
   const currentTime = document.createElement('span')
-  const formattedTime = format(new Date(), 'p', { timezone })
+  const zonedDate = toZonedTime(new Date(), timezone)
+  const formattedTime = format(zonedDate, 'p', { timezone })
   currentTime.textContent = formattedTime
   topSection.appendChild(locationName)
   topSection.appendChild(currentTime)
 
-  const middleSecction = document.createElement('div')
-  middleSecction.classList.add('middle-section')
+  const middleSection = document.createElement('div')
+  middleSection.classList.add('middle-section')
   const currWeatherIcon = document.createElement('p')
-  const currTemperature = document.createElement('h1')
+  const currTemperature = document.createElement('p')
+  currTemperature.classList.add("curr-temp")
   currTemperature.textContent = `${temp}\u00B0C`
+  const midSubSection = document.createElement("div")
+  midSubSection.classList.add("mid-sub-section")
   const condition = document.createElement('p')
   condition.textContent = conditions
-  middleSecction.appendChild(currTemperature)
-  middleSecction.appendChild(condition)
+  const feelsTemp = document.createElement("span")
+  feelsTemp.textContent = `Feels like ${feelslike}`
+  midSubSection.appendChild(condition)
+  midSubSection.appendChild(feelsTemp)
+  middleSection.appendChild(currTemperature)
+  middleSection.appendChild(midSubSection)
 
   const weatherDescription = document.createElement('div')
   weatherDescription.classList.add('weather-description')
@@ -33,6 +44,6 @@ export const renderWeatherData = function (
   // const tempVal = document.createElement("p")
   // tempVal.textContent = temp;
   weatherContainer.appendChild(topSection)
-  weatherContainer.appendChild(middleSecction)
+  weatherContainer.appendChild(middleSection)
   weatherContainer.appendChild(weatherDescription)
 }
