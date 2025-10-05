@@ -1,10 +1,12 @@
-import { format, toZonedTime} from 'date-fns-tz'
+import { format, toZonedTime } from 'date-fns-tz'
 
-
-
-
-export const renderWeatherData = function (
-  { address, currentConditions: { temp, conditions, feelslike }, description, timezone },
+export const renderWeatherData = async function (
+  {
+    address,
+    currentConditions: { temp, conditions, feelslike, icon },
+    description,
+    timezone,
+  },
   weatherContainer
 ) {
   weatherContainer.innerHTML = ''
@@ -22,18 +24,23 @@ export const renderWeatherData = function (
 
   const middleSection = document.createElement('div')
   middleSection.classList.add('middle-section')
-  const currWeatherIcon = document.createElement('p')
+  const currWeatherIcon = document.createElement('div')
+  currWeatherIcon.classList.add('weather-icon')
+  const iconModule = await import(`../icons/${icon}.js`)
+  currWeatherIcon.innerHTML = iconModule.default
+
   const currTemperature = document.createElement('p')
-  currTemperature.classList.add("curr-temp")
+  currTemperature.classList.add('curr-temp')
   currTemperature.textContent = `${temp}\u00B0C`
-  const midSubSection = document.createElement("div")
-  midSubSection.classList.add("mid-sub-section")
+  const midSubSection = document.createElement('div')
+  midSubSection.classList.add('mid-sub-section')
   const condition = document.createElement('p')
   condition.textContent = conditions
-  const feelsTemp = document.createElement("span")
+  const feelsTemp = document.createElement('span')
   feelsTemp.textContent = `Feels like ${feelslike}`
   midSubSection.appendChild(condition)
   midSubSection.appendChild(feelsTemp)
+  middleSection.appendChild(currWeatherIcon)
   middleSection.appendChild(currTemperature)
   middleSection.appendChild(midSubSection)
 
