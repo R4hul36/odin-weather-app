@@ -37,7 +37,7 @@ export const renderWeatherData = async function (
   const condition = document.createElement('p')
   condition.textContent = conditions
   const feelsTemp = document.createElement('span')
-  feelsTemp.textContent = `Feels like ${feelslike}`
+  feelsTemp.textContent = `Feels like ${feelslike}\u00B0C`
   midSubSection.appendChild(condition)
   midSubSection.appendChild(feelsTemp)
   middleSection.appendChild(currWeatherIcon)

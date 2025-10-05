@@ -7,6 +7,7 @@
 body {
   background-color: aliceblue;
   text-align: center;
+  font-family: sans-serif;
 }
 
 h1 {
@@ -14,7 +15,7 @@ h1 {
 }
 
 .main-container {
-  width: 50vw;
+  width: 500px;
   margin: auto;
 }
 
@@ -35,7 +36,7 @@ input {
 .weather-card {
   background-color: white;
   margin-top: 2rem;
-  padding: 1rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -58,13 +59,17 @@ input {
 }
 
 .curr-temp {
-  font-size: 3rem;
+  font-size: 3.2rem;
   font-weight: 500;
 }
 
 .weather-description,
 .mid-sub-section {
   text-align: start;
+}
+
+.mid-sub-section p {
+  font-weight: 700;
 }
 
 .mid-sub-section span {
