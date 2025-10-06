@@ -15,7 +15,7 @@ h1 {
 }
 
 .main-container {
-  width: 500px;
+  width: 480px;
   margin: auto;
 }
 
@@ -41,6 +41,11 @@ input {
   flex-direction: column;
   gap: 1rem;
 }
+
+.error-message {
+  color: red;
+}
+
 .top-section {
   display: flex;
   flex-direction: column;
