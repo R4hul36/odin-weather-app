@@ -3,7 +3,17 @@ import { format, toZonedTime } from 'date-fns-tz'
 export const renderWeatherData = async function (
   {
     address,
-    currentConditions: { temp, conditions, feelslike, icon },
+    currentConditions: {
+      temp,
+      conditions,
+      feelslike,
+      icon,
+      humidity,
+      pressure,
+      visibility,
+      windspeed,
+      dew,
+    },
     description,
     timezone,
   },
@@ -40,6 +50,7 @@ export const renderWeatherData = async function (
   feelsTemp.textContent = `Feels like ${feelslike}\u00B0C`
   midSubSection.appendChild(condition)
   midSubSection.appendChild(feelsTemp)
+
   middleSection.appendChild(currWeatherIcon)
   middleSection.appendChild(currTemperature)
   middleSection.appendChild(midSubSection)
@@ -48,9 +59,66 @@ export const renderWeatherData = async function (
   weatherDescription.classList.add('weather-description')
   weatherDescription.textContent = description
 
+  const bottomSection = document.createElement('div')
+  bottomSection.classList.add('bottom-section')
+
+  const details = { humidity, pressure, visibility, windspeed, dew }
+
+  const detail = [
+    {
+      name: 'Humidity',
+      value: humidity,
+      unit: '%',
+    },
+
+    {
+      name: 'Pressure',
+      value: pressure,
+      unit: ' mb',
+    },
+
+    {
+      name: 'Visibility',
+      value: visibility,
+      unit: ' km',
+    },
+
+    {
+      name: 'Windspeed',
+      value: windspeed,
+      unit: ' km/hr',
+    },
+
+    {
+      name: 'Dew',
+      value: dew,
+      unit: '\u00B0',
+    },
+  ]
+
+  detail.forEach((item) => {
+    console.log(item)
+
+    const { name, unit, value } = item
+    console.log(name, unit, value)
+  })
+
+  detail.forEach(({ name, value, unit }) => {
+    const weatherDetail = document.createElement('div')
+    weatherDetail.classList.add('weather-details')
+    const detailName = document.createElement('p')
+    detailName.textContent = name
+    const detailValue = document.createElement('p')
+    detailValue.textContent = `${value}${unit}`
+    weatherDetail.appendChild(detailName)
+    weatherDetail.appendChild(detailValue)
+    bottomSection.appendChild(weatherDetail)
+  })
+
   // const tempVal = document.createElement("p")
   // tempVal.textContent = temp;
   weatherContainer.appendChild(topSection)
   weatherContainer.appendChild(middleSection)
   weatherContainer.appendChild(weatherDescription)
+  weatherContainer.appendChild(bottomSection)
 }
