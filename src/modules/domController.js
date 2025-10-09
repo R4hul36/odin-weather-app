@@ -1,4 +1,6 @@
 import { format, toZonedTime } from 'date-fns-tz'
+import { fetchWeatherData } from './fetchWeatherData'
+fetchWeatherData
 
 export const renderWeatherData = async function (
   {
@@ -17,7 +19,8 @@ export const renderWeatherData = async function (
     description,
     timezone,
   },
-  weatherContainer
+  weatherContainer,
+  unit = 'C'
 ) {
   weatherContainer.innerHTML = ''
   weatherContainer.classList.remove('weather-container')
@@ -26,7 +29,7 @@ export const renderWeatherData = async function (
   const topSection = document.createElement('div')
   topSection.classList.add('top-section')
 
-  const locationAndTime = document.createElement("div")
+  const locationAndTime = document.createElement('div')
   const locationName = document.createElement('h2')
   locationName.textContent = address[0].toUpperCase() + address.slice(1)
   const currentTime = document.createElement('span')
@@ -36,19 +39,47 @@ export const renderWeatherData = async function (
   locationAndTime.appendChild(locationName)
   locationAndTime.appendChild(currentTime)
 
-  const switchContainer = document.createElement("div")
-  switchContainer.classList.add("switch-container")
-  const celsiusSwitch = document.createElement("button")
-  const fahrenheitSwitch = document.createElement("button")
-  celsiusSwitch.textContent = "\u00B0C"
-  fahrenheitSwitch.textContent = "\u00B0F"
+  const switchContainer = document.createElement('div')
+  switchContainer.classList.add('switch-container')
+  const celsiusSwitch = document.createElement('button')
+  celsiusSwitch.classList.add('celsius-switch')
+
+  const fahrenheitSwitch = document.createElement('button')
+  fahrenheitSwitch.classList.add('fahrenheit-switch')
+
+  if (unit === 'C') {
+    celsiusSwitch.classList.add('active')
+  } else if (unit === 'F') {
+    fahrenheitSwitch.classList.add('active')
+    celsiusSwitch.classList.remove('active')
+  }
+
+  celsiusSwitch.textContent = '\u00B0C'
+  fahrenheitSwitch.textContent = '\u00B0F'
   switchContainer.appendChild(celsiusSwitch)
   switchContainer.appendChild(fahrenheitSwitch)
 
+  switchContainer.addEventListener('click', async (e) => {
+    if (e.target.classList.contains('celsius-switch')) {
+      e.target.classList.add('active')
+      fahrenheitSwitch.classList.remove('active')
+      renderWeatherData(
+        await fetchWeatherData(address, 'metric'),
+        weatherContainer
+      )
+    } else if (e.target.classList.contains('fahrenheit-switch')) {
+      e.target.classList.add('active')
+      celsiusSwitch.classList.remove('active')
+      renderWeatherData(
+        await fetchWeatherData(address, 'us'),
+        weatherContainer,
+        'F'
+      )
+    }
+  })
 
-  
   topSection.appendChild(locationAndTime)
- 
+
   topSection.appendChild(switchContainer)
 
   const middleSection = document.createElement('div')

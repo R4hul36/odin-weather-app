@@ -8,8 +8,8 @@ console.log('hello world')
 
 const form = document.querySelector('.form')
 const input = document.querySelector('.search-field')
-const weatherContainer = document.querySelector(".weather-card")
-let currInputValue = ""
+const weatherContainer = document.querySelector('.weather-card')
+let currInputValue = ''
 
 input.addEventListener('input', () => {
   input.setCustomValidity('')
@@ -17,27 +17,23 @@ input.addEventListener('input', () => {
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault()
-  if(currInputValue === input.value) {
-    return;
+  if (currInputValue === input.value) {
+    return
   }
-  
+
   if (input.value.trim().length < 3) {
     input.setCustomValidity('Please Enter 3 characters or more')
     input.reportValidity()
     return
   }
   loadingComponent(weatherContainer)
-  const weatherInfo = await fetchWeatherData(input.value, "us")
-  if(!weatherInfo) {
+  const weatherInfo = await fetchWeatherData(input.value, 'metric')
+  console.log(weatherInfo)
+  if (!weatherInfo) {
     errorMessage(weatherContainer)
     return
-    
   }
- 
+
   renderWeatherData(weatherInfo, weatherContainer)
-  currInputValue = input.value;
-  
+  currInputValue = input.value
 })
-
-
-

@@ -73,8 +73,21 @@ input {
   font-weight: 500;
 }
 
-.switch-container button{
+.switch-container {
+  border-radius: 10px;
+  background-color: rgb(236, 236, 236);
+}
+
+.switch-container button {
   padding: 0.1rem 0.7rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: rgb(236, 236, 236);
+}
+
+.switch-container > .active {
+  background-color: rgb(209, 209, 209);
 }
 
 .weather-description,
