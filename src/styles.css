@@ -34,6 +34,10 @@ input {
 }
 
 .weather-card {
+  display: none;
+}
+
+.weather-card-active {
   background-color: white;
   margin-top: 2rem;
   padding: 1.5rem;
@@ -48,8 +52,9 @@ input {
 
 .top-section {
   display: flex;
-  flex-direction: column;
+  text-align: left;
   align-items: flex-start;
+  justify-content: space-between;
 }
 
 .middle-section {
@@ -66,6 +71,10 @@ input {
 .curr-temp {
   font-size: 3.2rem;
   font-weight: 500;
+}
+
+.switch-container button{
+  padding: 0.1rem 0.7rem;
 }
 
 .weather-description,

@@ -27,7 +27,7 @@ form.addEventListener('submit', async (e) => {
     return
   }
   loadingComponent(weatherContainer)
-  const weatherInfo = await fetchWeatherData(input.value)
+  const weatherInfo = await fetchWeatherData(input.value, "us")
   if(!weatherInfo) {
     errorMessage(weatherContainer)
     return

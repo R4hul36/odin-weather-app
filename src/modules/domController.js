@@ -20,17 +20,36 @@ export const renderWeatherData = async function (
   weatherContainer
 ) {
   weatherContainer.innerHTML = ''
+  weatherContainer.classList.remove('weather-container')
+  weatherContainer.classList.add('weather-card-active')
 
   const topSection = document.createElement('div')
   topSection.classList.add('top-section')
+
+  const locationAndTime = document.createElement("div")
   const locationName = document.createElement('h2')
   locationName.textContent = address[0].toUpperCase() + address.slice(1)
   const currentTime = document.createElement('span')
   const zonedDate = toZonedTime(new Date(), timezone)
   const formattedTime = format(zonedDate, 'p', { timezone })
   currentTime.textContent = formattedTime
-  topSection.appendChild(locationName)
-  topSection.appendChild(currentTime)
+  locationAndTime.appendChild(locationName)
+  locationAndTime.appendChild(currentTime)
+
+  const switchContainer = document.createElement("div")
+  switchContainer.classList.add("switch-container")
+  const celsiusSwitch = document.createElement("button")
+  const fahrenheitSwitch = document.createElement("button")
+  celsiusSwitch.textContent = "\u00B0C"
+  fahrenheitSwitch.textContent = "\u00B0F"
+  switchContainer.appendChild(celsiusSwitch)
+  switchContainer.appendChild(fahrenheitSwitch)
+
+
+  
+  topSection.appendChild(locationAndTime)
+ 
+  topSection.appendChild(switchContainer)
 
   const middleSection = document.createElement('div')
   middleSection.classList.add('middle-section')
