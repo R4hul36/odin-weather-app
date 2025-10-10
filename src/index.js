@@ -51,4 +51,5 @@ form.addEventListener('submit', async (e) => {
 
   renderWeatherData(weatherInfo, weatherContainer, tempUnit)
   currInputValue = input.value
+  input.value = ""
 })

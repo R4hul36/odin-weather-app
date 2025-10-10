@@ -38,6 +38,7 @@ export const renderWeatherData = async function (
   const locationName = document.createElement('h2')
   locationName.textContent = address[0].toUpperCase() + address.slice(1)
   const currentTime = document.createElement('span')
+  currentTime.classList.add("time")
   const zonedDate = toZonedTime(new Date(), timezone)
   const formattedTime = format(zonedDate, 'p', { timezone })
   currentTime.textContent = formattedTime
@@ -165,7 +166,7 @@ export const renderWeatherData = async function (
     weatherDetail.classList.add('weather-details')
     const detailName = document.createElement('p')
     detailName.textContent = name
-    const detailValue = document.createElement('p')
+    const detailValue = document.createElement('span')
     detailValue.textContent = `${value}${unit}`
     weatherDetail.appendChild(detailName)
     weatherDetail.appendChild(detailValue)

@@ -31,6 +31,9 @@ input {
 
 #search-btn {
   padding: 0.5rem 0.8rem;
+  background-color: rgb(3, 101, 101);
+  border: none;
+  color: white;
 }
 
 .weather-card {
@@ -57,11 +60,13 @@ input {
   justify-content: space-between;
 }
 
-.middle-section {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
+.top-section h2 {
+  font-size: 2.2rem;
+}
+
+.time {
+  font-size: 0.8rem;
+  
 }
 
 .weather-icon {
@@ -90,6 +95,13 @@ input {
   background-color: rgb(209, 209, 209);
 }
 
+.middle-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
 .weather-description,
 .mid-sub-section {
   text-align: start;
@@ -111,5 +123,14 @@ input {
 .weather-details {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 0.3rem;
+}
+
+.weather-details > span {
+  font-size: 0.9rem;
+}
+
+.weather-details > p{
+  font-weight: 700;
 }
