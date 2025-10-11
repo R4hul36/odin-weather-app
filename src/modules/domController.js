@@ -26,8 +26,34 @@ export const renderWeatherData = async function (
   weatherContainer.classList.remove('weather-container')
   weatherContainer.classList.add('weather-card-active')
 
+  renderTop(weatherContainer, address, timezone, tempUnit)
+  await renderMiddle(
+    weatherContainer,
+    temp,
+    conditions,
+    feelslike,
+    icon,
+    tempUnit
+  )
+  const weatherDescription = document.createElement('div')
+  weatherDescription.classList.add('weather-description')
+  weatherDescription.textContent = description
+  weatherContainer.appendChild(weatherDescription)
+
+  renderBottom(
+    weatherContainer,
+    humidity,
+    pressure,
+    visibility,
+    windspeed,
+    dew,
+    tempUnit
+  )
+}
+
+function renderTop(weatherContainer, address, timezone, tempUnit) {
   let currentUnit = getWeatherUnit()
-  if(!currentUnit) {
+  if (!currentUnit) {
     currentUnit = tempUnit
   }
 
@@ -38,7 +64,7 @@ export const renderWeatherData = async function (
   const locationName = document.createElement('h2')
   locationName.textContent = address[0].toUpperCase() + address.slice(1)
   const currentTime = document.createElement('span')
-  currentTime.classList.add("time")
+  currentTime.classList.add('time')
   const zonedDate = toZonedTime(new Date(), timezone)
   const formattedTime = format(zonedDate, 'p', { timezone })
   currentTime.textContent = formattedTime
@@ -67,7 +93,7 @@ export const renderWeatherData = async function (
 
   switchContainer.addEventListener('click', async (e) => {
     if (e.target.classList.contains('celsius-switch')) {
-      setWeatherUnit("C")
+      setWeatherUnit('C')
       e.target.classList.add('active')
       fahrenheitSwitch.classList.remove('active')
       renderWeatherData(
@@ -89,7 +115,17 @@ export const renderWeatherData = async function (
   topSection.appendChild(locationAndTime)
 
   topSection.appendChild(switchContainer)
+  weatherContainer.appendChild(topSection)
+}
 
+async function renderMiddle(
+  weatherContainer,
+  temp,
+  conditions,
+  feelslike,
+  icon,
+  tempUnit
+) {
   const middleSection = document.createElement('div')
   middleSection.classList.add('middle-section')
   const currWeatherIcon = document.createElement('div')
@@ -112,16 +148,20 @@ export const renderWeatherData = async function (
   middleSection.appendChild(currWeatherIcon)
   middleSection.appendChild(currTemperature)
   middleSection.appendChild(midSubSection)
+  weatherContainer.appendChild(middleSection)
+}
 
-  const weatherDescription = document.createElement('div')
-  weatherDescription.classList.add('weather-description')
-  weatherDescription.textContent = description
-
+function renderBottom(
+  weatherContainer,
+  humidity,
+  pressure,
+  visibility,
+  windspeed,
+  dew,
+  tempUnit
+) {
   const bottomSection = document.createElement('div')
   bottomSection.classList.add('bottom-section')
-
-  // const details = { humidity, pressure, visibility, windspeed, dew }
-
   const details = [
     {
       name: 'Humidity',
@@ -138,13 +178,13 @@ export const renderWeatherData = async function (
     {
       name: 'Visibility',
       value: visibility,
-      unit: `${tempUnit === "C"?' km':' miles'}`,
+      unit: `${tempUnit === 'C' ? ' km' : ' miles'}`,
     },
 
     {
       name: 'Windspeed',
       value: windspeed,
-      unit: `${tempUnit === "C"?' km/hr':' miles/hr'}`,
+      unit: `${tempUnit === 'C' ? ' km/hr' : ' mph'}`,
     },
 
     {
@@ -153,13 +193,6 @@ export const renderWeatherData = async function (
       unit: '\u00B0',
     },
   ]
-
-  // detail.forEach((item) => {
-  //   console.log(item)
-
-  //   const { name, unit, value } = item
-  //   console.log(name, unit, value)
-  // })
 
   details.forEach(({ name, value, unit }) => {
     const weatherDetail = document.createElement('div')
@@ -172,9 +205,5 @@ export const renderWeatherData = async function (
     weatherDetail.appendChild(detailValue)
     bottomSection.appendChild(weatherDetail)
   })
-
-  weatherContainer.appendChild(topSection)
-  weatherContainer.appendChild(middleSection)
-  weatherContainer.appendChild(weatherDescription)
   weatherContainer.appendChild(bottomSection)
 }

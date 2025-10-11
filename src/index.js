@@ -12,10 +12,9 @@ const input = document.querySelector('.search-field')
 const weatherContainer = document.querySelector('.weather-card')
 let currInputValue = ''
 
-
-const tempUnit = getWeatherUnit();
-if(!tempUnit) {
-  tempUnit = "C"
+const tempUnit = getWeatherUnit()
+if (!tempUnit) {
+  tempUnit = 'C'
 }
 
 input.addEventListener('input', () => {
@@ -23,16 +22,15 @@ input.addEventListener('input', () => {
 })
 
 form.addEventListener('submit', async (e) => {
-
-  let unit;
-  if(tempUnit === "C") {
-    unit = "metric"
-  }else if (tempUnit === "F"){
-    unit = "us"
+  let unit
+  if (tempUnit === 'C') {
+    unit = 'metric'
+  } else if (tempUnit === 'F') {
+    unit = 'us'
   }
 
   e.preventDefault()
-  if (currInputValue === input.value) {
+  if (currInputValue.toLowerCase() === input.value.toLowerCase()) {
     return
   }
 
@@ -51,5 +49,5 @@ form.addEventListener('submit', async (e) => {
 
   renderWeatherData(weatherInfo, weatherContainer, tempUnit)
   currInputValue = input.value
-  input.value = ""
+  input.value = ''
 })

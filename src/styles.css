@@ -34,6 +34,7 @@ input {
   background-color: rgb(3, 101, 101);
   border: none;
   color: white;
+  cursor: pointer;
 }
 
 .weather-card {
@@ -66,7 +67,6 @@ input {
 
 .time {
   font-size: 0.8rem;
-  
 }
 
 .weather-icon {
@@ -131,6 +131,6 @@ input {
   font-size: 0.9rem;
 }
 
-.weather-details > p{
+.weather-details > p {
   font-weight: 700;
 }
