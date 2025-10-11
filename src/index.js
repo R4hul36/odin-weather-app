@@ -12,7 +12,7 @@ const input = document.querySelector('.search-field')
 const weatherContainer = document.querySelector('.weather-card')
 let currInputValue = ''
 
-const tempUnit = getWeatherUnit()
+let tempUnit = getWeatherUnit()
 if (!tempUnit) {
   tempUnit = 'C'
 }
